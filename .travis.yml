@@ -1,8 +1,3 @@
-branches:
-  only:
-    - master
-    - develop
-    - ipv6
 language: ruby
 bundler_args: --without development
 script: "bundle exec rake spec SPEC_OPTS='--format documentation'"

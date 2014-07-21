@@ -37,23 +37,42 @@ Normal interface - static (minimal):
       ipaddress => '1.2.3.248',
       netmask   => '255.255.255.128',
     }
+    
+Normal interface - static (minimal + dynamic IPv6):
+
+    network::if::static { 'eth0':
+      ensure      => 'up',
+      ipaddress   => '1.2.3.248',
+      netmask     => '255.255.255.128',
+      enable_ipv6 => true,
+    }
 
 Normal interface - static:
 
     network::if::static { 'eth1':
-      ensure       => 'up',
-      ipaddress    => '1.2.3.4',
-      netmask      => '255.255.255.0',
-      gateway      => '1.2.3.1',
-      macaddress   => 'fe:fe:fe:aa:aa:aa',
-      mtu          => '9000',
-      ethtool_opts => 'autoneg off speed 1000 duplex full',
+      ensure        => 'up',
+      ipaddress     => '1.2.3.4',
+      netmask       => '255.255.255.0',
+      gateway       => '1.2.3.1',
+      macaddress    => 'fe:fe:fe:aa:aa:aa',
+      mtu           => '9000',
+      ethtool_opts  => 'autoneg off speed 1000 duplex full',
+      enable_ipv6   => true,
+      ipv6_autoconf => 'no',
+      ipv6addr      => 'fe80::baf6:b1ff:fe19:7507',
     }
 
 Normal interface - dhcp (minimal):
 
     network::if::dynamic { 'eth2':
       ensure => 'up',
+    }
+
+Normal interface - dhcp (minimal):
+
+    network::if::dynamic { 'eth2':
+      ensure      => 'up',
+      enable_ipv6 => true,
     }
 
 Normal interface - dhcp:
@@ -63,6 +82,7 @@ Normal interface - dhcp:
       macaddress   => 'fe:fe:fe:ae:ae:ae',
       mtu          => '1500',
       ethtool_opts => 'autoneg off speed 100 duplex full',
+      enable_ipv6  => true,
     }
 
 Normal interface - bootp (minimal):

@@ -10,6 +10,7 @@
 #   $userctl      - optional - defaults to false
 #   $mtu          - optional
 #   $ethtool_opts - optional
+#   $enable_ipv6  - optional - defaults to false
 #
 # === Actions:
 #
@@ -38,14 +39,16 @@
 #
 define network::if::dynamic (
   $ensure,
-  $macaddress = '',
-  $bootproto = 'dhcp',
-  $userctl = false,
-  $mtu = '',
-  $ethtool_opts = ''
+  $macaddress    = '',
+  $bootproto     = 'dhcp',
+  $userctl       = false,
+  $mtu           = '',
+  $ethtool_opts  = '',
+  $enable_ipv6   = false
 ) {
   # Validate our regular expressions
   $states = [ '^up$', '^down$' ]
+  $yesno  = [ '^yes$', '^no$' ]
   validate_re($ensure, $states, '$ensure must be either "up" or "down".')
 
   if ! is_mac_address($macaddress) {
@@ -55,6 +58,7 @@ define network::if::dynamic (
   }
   # Validate booleans
   validate_bool($userctl)
+  validate_bool($enable_ipv6)
 
   network_if_base { $title:
     ensure       => $ensure,
@@ -66,5 +70,9 @@ define network::if::dynamic (
     userctl      => $userctl,
     mtu          => $mtu,
     ethtool_opts => $ethtool_opts,
+    if $enable_ipv6 {
+      ipv6init      => 'yes',
+      ipv6_autoconf => 'yes',
+    }
   }
 } # define network::if::dynamic

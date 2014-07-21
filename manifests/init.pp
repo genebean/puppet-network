@@ -49,22 +49,25 @@ class network {
 #
 # === Parameters:
 #
-#   $ensure       - required - up|down
-#   $ipaddress    - required
-#   $netmask      - required
-#   $macaddress   - required
-#   $gateway      - optional
-#   $bootproto    - optional
-#   $userctl      - optional - defaults to false
-#   $mtu          - optional
-#   $ethtool_opts - optional
-#   $bonding_opts - optional
-#   $isalias      - optional
-#   $peerdns      - optional
-#   $dns1         - optional
-#   $dns2         - optional
-#   $domain       - optional
-#   $bridge       - optional
+#   $ensure        - required - up|down
+#   $ipaddress     - required
+#   $netmask       - required
+#   $macaddress    - required
+#   $gateway       - optional
+#   $bootproto     - optional
+#   $userctl       - optional - defaults to false
+#   $mtu           - optional
+#   $ethtool_opts  - optional
+#   $bonding_opts  - optional
+#   $isalias       - optional
+#   $peerdns       - optional
+#   $dns1          - optional
+#   $dns2          - optional
+#   $domain        - optional
+#   $bridge        - optional
+#   $ipv6init      - optional
+#   $ipv6_autoconf - optional
+#   $ipv6addr      - optional
 #
 # === Actions:
 #
@@ -97,18 +100,21 @@ define network_if_base (
   $ipaddress,
   $netmask,
   $macaddress,
-  $gateway = '',
-  $bootproto = 'none',
-  $userctl = false,
-  $mtu = '',
-  $ethtool_opts = '',
-  $bonding_opts = undef,
-  $isalias = false,
-  $peerdns = false,
-  $dns1 = '',
-  $dns2 = '',
-  $domain = '',
-  $bridge = ''
+  $gateway       = '',
+  $bootproto     = 'none',
+  $userctl       = false,
+  $mtu           = '',
+  $ethtool_opts  = '',
+  $bonding_opts  = undef,
+  $isalias       = false,
+  $peerdns       = false,
+  $dns1          = '',
+  $dns2          = '',
+  $domain        = '',
+  $bridge        = '',
+  $ipv6init      = '',
+  $ipv6_autoconf = '',
+  $ipv6addr
 ) {
   # Validate our booleans
   validate_bool($userctl)
@@ -116,7 +122,12 @@ define network_if_base (
   validate_bool($peerdns)
   # Validate our regular expressions
   $states = [ '^up$', '^down$' ]
+  $yesno  = [ '^yes$', '^no$' ]
   validate_re($ensure, $states, '$ensure must be either "up" or "down".')
+  validate_re($ipv6init, $yesno, '$ipv6init must be either "yes" or "no".')
+  if $ipv6init == 'yes' {
+    validate_re($ipv6_autoconf, $yesno, '$ipv6_autoconf must be either "yes" or "no".')
+  }
 
   include 'network'
 

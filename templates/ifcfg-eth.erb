@@ -14,6 +14,12 @@ TYPE=Ethernet
 <% end -%>
 <% if !@gateway.empty? %>GATEWAY=<%= @gateway %>
 <% end -%>
+<% if !@ipv6init.empty? %>IPV6INIT=<%= @ipv6init %>
+<% end -%>
+<% if !@ipv6addr.empty? %>IPV6ADDR=<%= @ipv6addr %>
+<% end -%>
+<% if !@ipv6_autoconf.empty? %>IPV6_AUTOCONF=<%= @ipv6_autoconf %>
+<% end -%>
 <% if !@mtu.empty? %>MTU=<%= @mtu %>
 <% end -%>
 <% if @bonding_opts %>BONDING_OPTS="<%= @bonding_opts %>"

@@ -1,8 +1,9 @@
 Puppet Network Module
 =====================
 
-master branch [![Build Status](https://secure.travis-ci.org/razorsedge/puppet-network.png?branch=master)](http://travis-ci.org/razorsedge/puppet-network)
-develop branch [![Build Status](https://secure.travis-ci.org/razorsedge/puppet-network.png?branch=develop)](http://travis-ci.org/razorsedge/puppet-network)
+master branch [![Build Status](https://travis-ci.org/genebean/puppet-network.svg?branch=master)](http://travis-ci.org/razorsedge/puppet-network)
+develop branch [![Build Status](https://travis-ci.org/genebean/puppet-network.svg?branch=develop)](http://travis-ci.org/razorsedge/puppet-network)
+ipv6 branch [![Build Status](https://travis-ci.org/genebean/puppet-network.svg?branch=ipv6)](http://travis-ci.org/razorsedge/puppet-network)
 
 Introduction
 ------------

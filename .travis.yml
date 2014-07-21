@@ -2,6 +2,7 @@ branches:
   only:
     - master
     - develop
+    - ipv6
 language: ruby
 bundler_args: --without development
 script: "bundle exec rake spec SPEC_OPTS='--format documentation'"
@@ -34,4 +35,4 @@ matrix:
       env: PUPPET_GEM_VERSION="~> 3.2.0"
 notifications:
   email:
-    - github@razorsedge.org
+    - me@technicalissues.us
